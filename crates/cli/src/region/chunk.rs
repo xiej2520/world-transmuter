@@ -10,13 +10,13 @@ use std::sync::OnceLock;
 use tracing::{error, info_span};
 use valence_anvil::RegionFolder;
 use valence_nbt::{compound, jcompound};
-use world_transmuter::{static_string_map, static_string_set, types};
+use world_transmuter_mcdata::{static_string_map, static_string_set, types};
 use world_transmuter_engine::{JCompound, JList, JValue};
 
 const LAST_MONOLITH_STRUCTURE_DATA_VERSION: u32 = 1493; // 18w20c
 
 static_string_map! {
-    CURRENT_TO_LEGACY_MAP, current_to_legacy_map, {
+    current_to_legacy_map = {
         "Village" => "Village",
         "Mineshaft" => "Mineshaft",
         "Mansion" => "Mansion",
@@ -32,7 +32,7 @@ static_string_map! {
 }
 
 static_string_map! {
-    LEGACY_TO_CURRENT_MAP, legacy_to_current_map, {
+    legacy_to_current_map = {
         "Iglu" => "Igloo",
         "TeDP" => "Desert_Pyramid",
         "TeJP" => "Jungle_Pyramid",
@@ -41,7 +41,7 @@ static_string_map! {
 }
 
 static_string_set! {
-    OLD_STRUCTURE_REGISTRY_KEYS, old_structure_registry_keys, {
+    old_structure_registry_keys = {
         "pillager_outpost",
         "mineshaft",
         "mansion",

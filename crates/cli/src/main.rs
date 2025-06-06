@@ -19,8 +19,8 @@ use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::{EnvFilter, Registry};
 use tracing_tree::time::FormatTime;
 use tracing_tree::HierarchicalLayer;
-use world_transmuter::types;
-use world_transmuter::version_names::{get_version_by_id, get_version_by_name, VersionType};
+use world_transmuter_mcdata::types;
+use world_transmuter_mcdata::version_names::{get_version_by_id, get_version_by_name, VersionType};
 use world_transmuter_engine::{AbstractMapDataType, JCompound, MapDataType};
 
 const ADVANCEMENTS_AND_STATS_VERSION: u32 = 1343; // 1.12.2

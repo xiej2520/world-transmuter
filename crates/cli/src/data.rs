@@ -9,7 +9,7 @@ use std::path::Path;
 use std::sync::RwLockReadGuard;
 use tracing::{error, info_span};
 use valence_nbt::{from_binary, to_binary};
-use world_transmuter::types;
+use world_transmuter_mcdata::types;
 use world_transmuter_engine::{JCompound, MapDataType};
 
 pub fn read_data(dim_folder: &Path, name: impl Into<String>) -> io::Result<Option<JCompound>> {

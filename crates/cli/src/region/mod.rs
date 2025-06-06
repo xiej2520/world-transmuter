@@ -9,7 +9,7 @@ use std::path::Path;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use tracing::{error, info, info_span, Span};
 use valence_anvil::{RawChunk, RegionError, RegionFolder};
-use world_transmuter::types;
+use world_transmuter_mcdata::types;
 use world_transmuter_engine::JCompound;
 
 pub use chunk::{delete_legacy_dat_files, upgrade_chunks};

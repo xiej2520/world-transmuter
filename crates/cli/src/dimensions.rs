@@ -4,7 +4,7 @@ use crate::region::{delete_legacy_dat_files, upgrade_chunks, upgrade_entities, u
 use java_string::JavaStr;
 use std::path::Path;
 use tracing::{error, info_span};
-use world_transmuter::types;
+use world_transmuter_mcdata::types;
 use world_transmuter_engine::{JCompound, JValue};
 
 const FIRST_RAIDS_VERSION: u32 = 1912; // 18w47a
