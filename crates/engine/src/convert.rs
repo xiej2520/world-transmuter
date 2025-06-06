@@ -380,7 +380,7 @@ version_list!(
     structure_hooks,
     impl MapDataHook + 'a
 );
-impl<'a> MapDataType<'a> {
+impl MapDataType<'_> {
     pub fn new(name: impl Into<String>) -> Self {
         Self {
             name: name.into(),
@@ -391,7 +391,7 @@ impl<'a> MapDataType<'a> {
     }
 }
 
-impl<'a> AbstractMapDataType for MapDataType<'a> {
+impl AbstractMapDataType for MapDataType<'_> {
     fn convert(&self, data: &mut JCompound, from_version: DataVersion, to_version: DataVersion) {
         for converter in &self.structure_converters {
             if converter.get_to_version() <= from_version {
@@ -464,7 +464,7 @@ version_list!(
     impl ValueDataHook + 'a
 );
 
-impl<'a> ObjectDataType<'a> {
+impl ObjectDataType<'_> {
     pub fn new(name: impl Into<String>) -> Self {
         Self {
             name: name.into(),
@@ -474,7 +474,7 @@ impl<'a> ObjectDataType<'a> {
     }
 }
 
-impl<'a> AbstractValueDataType for ObjectDataType<'a> {
+impl AbstractValueDataType for ObjectDataType<'_> {
     fn convert(&self, data: &mut JValueMut, from_version: DataVersion, to_version: DataVersion) {
         for converter in &self.converters {
             if converter.get_to_version() <= from_version {
@@ -534,7 +534,7 @@ version_list!(
     impl DynamicDataHook + 'a
 );
 
-impl<'a> DynamicDataType<'a> {
+impl DynamicDataType<'_> {
     pub fn new(name: impl Into<String>) -> Self {
         Self {
             name: name.into(),
@@ -545,7 +545,7 @@ impl<'a> DynamicDataType<'a> {
     }
 }
 
-impl<'a> AbstractDynamicDataType for DynamicDataType<'a> {
+impl AbstractDynamicDataType for DynamicDataType<'_> {
     fn convert(&self, data: &mut JValue, from_version: DataVersion, to_version: DataVersion) {
         for converter in &self.structure_converters {
             if converter.get_to_version() <= from_version {
@@ -692,7 +692,7 @@ impl<'a> IdDataType<'a> {
     }
 }
 
-impl<'a> AbstractMapDataType for IdDataType<'a> {
+impl AbstractMapDataType for IdDataType<'_> {
     fn convert(&self, data: &mut JCompound, from_version: DataVersion, to_version: DataVersion) {
         for converter in &self.structure_converters {
             if converter.get_to_version() <= from_version {

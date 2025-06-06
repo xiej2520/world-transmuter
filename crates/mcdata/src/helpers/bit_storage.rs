@@ -119,7 +119,7 @@ where
                 bits
             ));
         }
-        let expected_len = (bits as usize * size + 63) / 64;
+        let expected_len = (bits as usize * size).div_ceil(64);
         if data.as_ref().len() != expected_len {
             return Err(format!(
                 "Expected data length for {} bits of size {} is {}, but was: {}",
@@ -189,7 +189,7 @@ where
     {
         debug_assert!((1..=32).contains(&new_bits));
         assert_eq!(
-            (new_bits as usize * self.size + 63) / 64,
+            (new_bits as usize * self.size).div_ceil(64),
             new_data.as_ref().len()
         );
         self.bits = new_bits;
@@ -202,7 +202,7 @@ impl BitStorageOwned for PackedBitStorage<Vec<i64>> {
     fn new(bits: u8, size: usize) -> Self {
         assert!((1..=32).contains(&bits));
         Self {
-            data: vec![0i64; (bits as usize * size + 63) / 64],
+            data: vec![0i64; (bits as usize * size).div_ceil(64)],
             bits,
             mask: (1 << bits) - 1,
             size,
