@@ -308,9 +308,9 @@ fn json_value(i: &[u8]) -> IResult<&[u8], Cow<[u8]>> {
 unsafe fn concat_strings<'a>(a: Cow<'a, [u8]>, b: Cow<'a, [u8]>) -> Cow<'a, [u8]> {
     if let (Cow::Borrowed(a), Cow::Borrowed(b)) = (&a, &b) {
         // SAFETY: this is the invariant checked by the caller
-        if (*b).as_ptr().offset_from((*a).as_ptr()) == a.len() as isize {
+        if unsafe { (*b).as_ptr().offset_from((*a).as_ptr()) } == a.len() as isize {
             // SAFETY: we know that b lies exactly after a, and they will both live as long as 'a
-            Cow::Borrowed(std::slice::from_raw_parts(a.as_ptr(), a.len() + b.len()))
+            Cow::Borrowed(unsafe { std::slice::from_raw_parts(a.as_ptr(), a.len() + b.len()) })
         } else {
             let mut result = a.to_vec();
             result.extend_from_slice(b);
