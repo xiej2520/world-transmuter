@@ -115,10 +115,12 @@ fn upgrade_regions<S>(
             .or_default()
             .push(chunk_pos);
     }
+    let total_chunks = partitioned_chunks.values().map(Vec::len).sum::<usize>();
 
     // upgrade the chunks
     let num_errors = AtomicUsize::new(0);
     let parent_span = Span::current();
+    let upgraded_chunks = AtomicUsize::new(0);
     partitioned_chunks
         .into_values()
         .collect::<Vec<_>>()
@@ -155,6 +157,13 @@ fn upgrade_regions<S>(
                         {
                             error!("Error writing chunk at {chunk_x}, {chunk_z}: {err}");
                         }
+                    }
+                    let upgraded_chunks = upgraded_chunks.fetch_add(1, Ordering::Relaxed);
+                    if upgraded_chunks % 1024 == 0 {
+                        info!(
+                            "{upgraded_chunks}/{total_chunks} chunks upgraded ({:.2}%)",
+                            upgraded_chunks as f64 / total_chunks as f64 * 100.0
+                        );
                     }
                 }
             },

@@ -2,20 +2,19 @@
 
 ## Building
 
-Have the Rust toolchain installed:
+You can build and run this with the [Rust toolchain](https://www.rust-lang.org/tools/install) installed
+(make sure to build with `--release` !):
 
 ```sh
-# with cargo
-cargo run
+cargo run --release
 ```
 
-Full build with nix:
+Or with the nix package manager:
 
 ```sh
-# flakes and submodules >_>
 # binary in result/bin/world-transmuter-cli
-nix build '.?submodules=1'# 
+nix build
 
 # build and run binary
-nix run '.?submodules=1'#
+nix run
 ```
