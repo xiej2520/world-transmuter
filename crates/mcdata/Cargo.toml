@@ -1,0 +1,32 @@
+[package]
+name = "world-transmuter"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+ahash = "0.8.3"
+bitvec = { version = "1.0.0", default-features = false }
+indexmap = "2.7.1"
+java_string = ">=0.1.1"
+nom = "7.1.1"
+strength_reduce = "0.2.3"
+tracing = "0.1.40"
+uuid = "1"
+valence_nbt = { version = "0.8", features = ["java_string", "snbt"] }
+world-transmuter-engine = "0.8.0"
+
+[dev-dependencies]
+
+attohttpc = { version = "0.26.0", features = ["json"] }
+regex = "1.5.5"
+serde = { version = "1.0.183", features = ["derive"] }
+serde_json = "1.0.104"
+time = { version = "0.3.25", features = ["macros", "parsing", "serde"] }
+valence_nbt = { version = "0.8", features = ["java_string", "snbt"] }
+zip = "0.6.6"
+
+[features]
+
+# Enable tests that could potentially break without code having been updated, because Minecraft has updated.
+update_checks = []
