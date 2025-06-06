@@ -1,8 +1,8 @@
 use crate::types;
-use java_string::{format_java, JavaStr, JavaString};
+use java_string::{JavaStr, JavaString, format_java};
 use world_transmuter_engine::{
-    map_data_converter_func, value_data_converter_func, AbstractValueDataType, DataVersion,
-    JCompound, JList, JValue, JValueMut,
+    AbstractValueDataType, DataVersion, JCompound, JList, JValue, JValueMut,
+    map_data_converter_func, value_data_converter_func,
 };
 
 pub(crate) fn rename_entity(
@@ -400,10 +400,6 @@ pub(crate) fn rename_keys(
             from_version,
             to_version,
         );
-        if new_key != key {
-            Some(new_key)
-        } else {
-            None
-        }
+        if new_key != key { Some(new_key) } else { None }
     });
 }

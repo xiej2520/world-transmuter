@@ -1,6 +1,6 @@
 use crate::helpers::bit_storage::{
-    bitset_size, ceil_log2, BitStorage, BitStorageMut, BitStorageOwned, ChunkNibbleArray, LocalPos,
-    PackedBitStorage,
+    BitStorage, BitStorageMut, BitStorageOwned, ChunkNibbleArray, LocalPos, PackedBitStorage,
+    bitset_size, ceil_log2,
 };
 use crate::helpers::block_state::{BlockState, BlockStateOwned};
 use crate::helpers::{block_flattening_v1450, item_name_v102};
@@ -510,7 +510,10 @@ impl<'a> UpgradeChunk<'a> {
                     .insert(LocalPos::new(x, y, z), tile_entity)
                     .is_some()
                 {
-                    warn!("In chunk: {}x{} found a duplicate block entity at position (ConverterFlattenChunk): [{}, {}, {}]", block_x, block_z, x, y, z);
+                    warn!(
+                        "In chunk: {}x{} found a duplicate block entity at position (ConverterFlattenChunk): [{}, {}, {}]",
+                        block_x, block_z, x, y, z
+                    );
                 }
             }
         }
@@ -527,11 +530,17 @@ impl<'a> UpgradeChunk<'a> {
                 let section = Section::from_nbt(section, &mut sides);
                 let section_y = section.y;
                 if !(0..=15).contains(&section_y) {
-                    warn!("In chunk: {}x{} found an invalid chunk section y (ConverterFlattenChunk): {}", block_x, block_z, section_y);
+                    warn!(
+                        "In chunk: {}x{} found an invalid chunk section y (ConverterFlattenChunk): {}",
+                        block_x, block_z, section_y
+                    );
                     continue;
                 }
                 if sections_arr[section_y as usize].is_some() {
-                    warn!("In chunk: {}x{} found a duplicate chunk section (ConverterFlattenChunk): {}", block_x, block_z, section_y);
+                    warn!(
+                        "In chunk: {}x{} found a duplicate chunk section (ConverterFlattenChunk): {}",
+                        block_x, block_z, section_y
+                    );
                 }
                 sections_arr[section_y as usize] = Some(section);
             }

@@ -8,20 +8,20 @@ use crate::dimensions::upgrade_dimensions;
 use crate::individual_files::{
     upgrade_advancements, upgrade_level_dat, upgrade_playerdata, upgrade_stats,
 };
-use clap::{arg, command, value_parser, ArgAction};
+use clap::{ArgAction, arg, command, value_parser};
 use std::fmt::Write;
 use std::path::PathBuf;
 use std::sync::RwLockReadGuard;
 use time::OffsetDateTime;
-use tracing::{error, info, warn, Level};
+use tracing::{Level, error, info, warn};
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::{EnvFilter, Registry};
-use tracing_tree::time::FormatTime;
 use tracing_tree::HierarchicalLayer;
-use world_transmuter_mcdata::types;
-use world_transmuter_mcdata::version_names::{get_version_by_id, get_version_by_name, VersionType};
+use tracing_tree::time::FormatTime;
 use world_transmuter_engine::{AbstractMapDataType, JCompound, MapDataType};
+use world_transmuter_mcdata::types;
+use world_transmuter_mcdata::version_names::{VersionType, get_version_by_id, get_version_by_name};
 
 const ADVANCEMENTS_AND_STATS_VERSION: u32 = 1343; // 1.12.2
 

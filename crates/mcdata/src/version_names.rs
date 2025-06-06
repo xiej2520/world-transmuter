@@ -607,10 +607,10 @@ pub enum VersionType {
 #[cfg(test)]
 #[cfg(feature = "update_checks")]
 mod tests {
-    use crate::version_names::{get_version_by_id, VersionType};
+    use crate::version_names::{VersionType, get_version_by_id};
     use serde::Deserialize;
-    use time::macros::datetime;
     use time::OffsetDateTime;
+    use time::macros::datetime;
     use zip::ZipArchive;
 
     #[test]

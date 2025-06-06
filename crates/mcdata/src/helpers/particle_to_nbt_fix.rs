@@ -4,8 +4,8 @@ use std::borrow::Cow;
 use std::fmt::Display;
 use std::str::FromStr;
 use tracing::warn;
-use valence_nbt::{compound, jcompound, snbt, Value};
-use world_transmuter_engine::{compound_to_java, JCompound, JList};
+use valence_nbt::{Value, compound, jcompound, snbt};
+use world_transmuter_engine::{JCompound, JList, compound_to_java};
 
 fn parse_nbt(flat: &JavaStr) -> Option<JCompound> {
     fn fail(flat: impl Display, reason: impl Display) -> Option<JCompound> {

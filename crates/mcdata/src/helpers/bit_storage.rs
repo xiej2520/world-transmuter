@@ -1,7 +1,7 @@
 use crate::helpers::block_state::{BlockState, BlockStateOwned};
 use strength_reduce::StrengthReducedUsize;
 use tracing::{error, warn};
-use world_transmuter_engine::{get_mut_multi, JCompound, JList, JValue};
+use world_transmuter_engine::{JCompound, JList, JValue, get_mut_multi};
 
 pub(crate) const fn bitset_size(size: usize) -> usize {
     size.div_ceil(usize::BITS as usize)

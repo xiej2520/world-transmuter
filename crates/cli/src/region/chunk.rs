@@ -1,5 +1,5 @@
 use crate::data::read_data;
-use crate::region::{upgrade_regions, SEPARATE_ENTITIES_VERSION};
+use crate::region::{SEPARATE_ENTITIES_VERSION, upgrade_regions};
 use crate::upgrade;
 use ahash::{AHashMap, AHashSet};
 use java_string::{JavaStr, JavaString};
@@ -10,8 +10,8 @@ use std::sync::OnceLock;
 use tracing::{error, info_span};
 use valence_anvil::RegionFolder;
 use valence_nbt::{compound, jcompound};
-use world_transmuter_mcdata::{static_string_map, static_string_set, types};
 use world_transmuter_engine::{JCompound, JList, JValue};
+use world_transmuter_mcdata::{static_string_map, static_string_set, types};
 
 const LAST_MONOLITH_STRUCTURE_DATA_VERSION: u32 = 1493; // 18w20c
 

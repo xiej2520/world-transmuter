@@ -1,7 +1,7 @@
 use crate::helpers::{block_flattening_v1450, flatten_item_stack_v1451};
 use crate::versions::v1451::pack_with_dot;
 use crate::{static_string_map, static_string_set};
-use java_string::{format_java, JavaStr, JavaString};
+use java_string::{JavaStr, JavaString, format_java};
 use world_transmuter_engine::{DataVersion, JCompound, JValue, MapDataConverterFunc};
 
 static_string_set! {

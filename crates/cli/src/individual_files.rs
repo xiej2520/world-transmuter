@@ -1,19 +1,19 @@
-use crate::{upgrade, ADVANCEMENTS_AND_STATS_VERSION};
+use crate::{ADVANCEMENTS_AND_STATS_VERSION, upgrade};
+use flate2::Compression;
 use flate2::read::GzDecoder;
 use flate2::write::GzEncoder;
-use flate2::Compression;
 use java_string::JavaStr;
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use std::fs::File;
 use std::io::{ErrorKind, Read, Write};
 use std::path::Path;
 use std::sync::RwLockReadGuard;
-use tracing::{error, info_span, warn, Span};
+use tracing::{Span, error, info_span, warn};
 use valence_nbt::{from_binary, to_binary};
+use world_transmuter_engine::{AbstractMapDataType, JCompound, JValue, MapDataType};
 use world_transmuter_mcdata::json::{parse_compound, stringify_compound};
 use world_transmuter_mcdata::types;
 use world_transmuter_mcdata::version_names::{get_version_by_id, get_versions};
-use world_transmuter_engine::{AbstractMapDataType, JCompound, JValue, MapDataType};
 
 const OLD_SETTINGS_KEYS: [&str; 7] = [
     "RandomSeed",

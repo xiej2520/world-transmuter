@@ -1,7 +1,7 @@
 use crate::upgrade;
+use flate2::Compression;
 use flate2::read::GzDecoder;
 use flate2::write::GzEncoder;
-use flate2::Compression;
 use std::fs::File;
 use std::io;
 use std::io::{ErrorKind, Read, Seek, SeekFrom};
@@ -9,8 +9,8 @@ use std::path::Path;
 use std::sync::RwLockReadGuard;
 use tracing::{error, info_span};
 use valence_nbt::{from_binary, to_binary};
-use world_transmuter_mcdata::types;
 use world_transmuter_engine::{JCompound, MapDataType};
+use world_transmuter_mcdata::types;
 
 pub fn read_data(dim_folder: &Path, name: impl Into<String>) -> io::Result<Option<JCompound>> {
     let mut file = dim_folder.join("data");

@@ -389,7 +389,7 @@ mod tests {
     use super::ParseError;
     use java_string::JavaStr;
     use valence_nbt::Value;
-    use world_transmuter_engine::{compound_to_java, JCompound};
+    use world_transmuter_engine::{JCompound, compound_to_java};
 
     fn parse_compound(json: &str) -> Result<JCompound, ParseError> {
         super::parse_compound(JavaStr::from_str(json), false)

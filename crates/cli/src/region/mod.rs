@@ -7,10 +7,10 @@ use std::collections::HashMap;
 use std::io::ErrorKind;
 use std::path::Path;
 use std::sync::atomic::{AtomicUsize, Ordering};
-use tracing::{error, info, info_span, Span};
+use tracing::{Span, error, info, info_span};
 use valence_anvil::{RawChunk, RegionError, RegionFolder};
-use world_transmuter_mcdata::types;
 use world_transmuter_engine::JCompound;
+use world_transmuter_mcdata::types;
 
 pub use chunk::{delete_legacy_dat_files, upgrade_chunks};
 
@@ -48,22 +48,20 @@ pub fn upgrade_poi(dimension: &Path, to_version: u32, dry_run: bool) {
 
     let poi_path = dimension.join("poi");
     match poi_path.try_exists() {
-        Ok(true) => {
-            upgrade_regions(
-                &poi_path,
-                dry_run,
-                |chunk_x, chunk_z, chunk, _| {
-                    upgrade(
-                        types::poi_chunk,
-                        chunk,
-                        || format!("chunk at {chunk_x}, {chunk_z}"),
-                        to_version,
-                        FIRST_POI_VERSION,
-                    )
-                },
-                || (),
-            )
-        }
+        Ok(true) => upgrade_regions(
+            &poi_path,
+            dry_run,
+            |chunk_x, chunk_z, chunk, _| {
+                upgrade(
+                    types::poi_chunk,
+                    chunk,
+                    || format!("chunk at {chunk_x}, {chunk_z}"),
+                    to_version,
+                    FIRST_POI_VERSION,
+                )
+            },
+            || (),
+        ),
         Ok(false) => {}
         Err(err) => {
             error!("Error checking if poi exists, skipping: {err}");

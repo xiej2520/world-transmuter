@@ -1,6 +1,6 @@
-use crate::helpers::gson_lenient_fix::{fix_gson_lenient, FixedGsonLenient, JsonType};
+use crate::helpers::gson_lenient_fix::{FixedGsonLenient, JsonType, fix_gson_lenient};
 use crate::helpers::json_parser;
-use java_string::{format_java, JavaStr, JavaString};
+use java_string::{JavaStr, JavaString, format_java};
 use std::borrow::{Borrow, Cow};
 use world_transmuter_engine::JValue;
 

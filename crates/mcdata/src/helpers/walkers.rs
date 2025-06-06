@@ -1,6 +1,6 @@
 use std::sync::RwLock;
 use world_transmuter_engine::{
-    convert_object_in_map, DataVersion, JCompound, JValue, MapDataWalker, ObjectDataType,
+    DataVersion, JCompound, JValue, MapDataWalker, ObjectDataType, convert_object_in_map,
 };
 
 pub(crate) struct GameEventListenerWalker<'a> {

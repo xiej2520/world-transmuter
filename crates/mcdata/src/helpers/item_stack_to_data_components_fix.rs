@@ -4,7 +4,7 @@ use crate::static_string_set;
 use crate::versions::v3818;
 use java_string::{JavaStr, JavaString};
 use valence_nbt::{compound, jcompound};
-use world_transmuter_engine::{rename_key, JCompound, JList, JValue};
+use world_transmuter_engine::{JCompound, JList, JValue, rename_key};
 
 const TOOLTIP_FLAG_HIDE_ENCHANTMENTS: i32 = 1 << 0;
 const TOOLTIP_FLAG_HIDE_MODIFIERS: i32 = 1 << 1;
