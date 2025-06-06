@@ -60,15 +60,30 @@ pub fn upgrade_level_dat(world: &Path, to_version: u32, dry_run: bool) -> Option
                 to_version.into(),
             );
         }
+        
+        // Since 15w32a
+        if to_version >= 100 {
+            let version_info = get_version_by_id(to_version).unwrap();
+            let mut version = JCompound::new();
+            version.insert("Id", to_version as i32);
+            version.insert("Name", version_info.name);
+            version.insert("Snapshot", match version_info.typ {
+                world_transmuter_mcdata::version_names::VersionType::Release => false,
+                world_transmuter_mcdata::version_names::VersionType::Snapshot => true,
+            });
+            // TODO: find out which 1.18 snapshots had "ccpreview" developing series;
+            version.insert("Series", "main");
+            data.insert("Version", version);
+        }
     }
 
     let path = world.join("level.dat");
-    let Ok(mut file) = File::options().read(true).write(!dry_run).open(&path) else {
+    let Ok(file) = File::options().read(true).open(&path) else {
         error!("Failed to open {}", path.to_string_lossy());
         return None;
     };
 
-    let Some(mut level_dat) = read_compound(&mut file) else {
+    let Some(mut level_dat) = read_compound(file) else {
         error!("Failed to read level.dat");
         return None;
     };
@@ -100,9 +115,16 @@ pub fn upgrade_level_dat(world: &Path, to_version: u32, dry_run: bool) -> Option
 
     update_data(data, data_version.data_version, to_version);
 
-    if !dry_run && !write_compound(file, &level_dat) {
-        error!("Failed to write back to level.dat");
-        return None;
+    if !dry_run {
+        let Ok(file) = File::options().write(true).truncate(true).open(&path) else {
+            error!("Failed to open {} for write", path.to_string_lossy());
+            return None;
+        };
+
+        if !write_compound(file, &level_dat) {
+            error!("Failed to write back to level.dat");
+            return None;
+        }
     }
 
     let Some(JValue::Compound(mut data)) = level_dat.remove("Data") else {
@@ -136,9 +158,8 @@ fn upgrade_dat_dir(
                     Ok(file) => {
                         let path = file.path();
                         if path.extension() == Some("dat".as_ref()) {
-                            let mut file = match File::options()
+                            let file = match File::options()
                                 .read(true)
-                                .write(!dry_run)
                                 .open(&path)
                             {
                                 Ok(file) => file,
@@ -147,7 +168,7 @@ fn upgrade_dat_dir(
                                     return;
                                 }
                             };
-                            let Some(mut data) = read_compound(&mut file) else {
+                            let Some(mut data) = read_compound(file) else {
                                 error!("Failed to read {}", path.to_string_lossy());
                                 return;
                             };
@@ -162,9 +183,23 @@ fn upgrade_dat_dir(
                                 return;
                             }
 
-                            if !dry_run && !write_compound(&mut file, &data) {
+                            if !dry_run {
+                            let mut file = match File::options()
+                                .write(true)
+                                .truncate(true)
+                                .open(&path)
+                            {
+                                Ok(file) => file,
+                                Err(err) => {
+                                    error!("Failed to open {}: {}", path.to_string_lossy(), err);
+                                    return;
+                                }
+                            };
+
+                            if !write_compound(&mut file, &data) {
                                 error!("Failed to write file {}", path.to_string_lossy());
                             }
+                        }
                         }
                     }
                     Err(err) => {
