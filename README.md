@@ -6,7 +6,7 @@ Have the Rust toolchain installed:
 
 ```sh
 # with cargo
-cargo run
+cargo run --release
 ```
 
 Full build with nix:
