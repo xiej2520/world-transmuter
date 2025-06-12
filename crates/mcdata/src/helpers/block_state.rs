@@ -47,7 +47,7 @@ macro_rules! block_state_owned {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-pub(crate) struct BlockState<'a> {
+pub struct BlockState<'a> {
     pub(crate) name: &'a JavaStr,
     pub(crate) properties: BTreeMap<&'a JavaStr, &'a JavaStr>,
 }

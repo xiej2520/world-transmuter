@@ -5,7 +5,7 @@ use std::collections::BTreeMap;
 use std::sync::OnceLock;
 use world_transmuter_engine::JCompound;
 
-pub(crate) fn flatten_nbt(nbt: &JCompound) -> Option<JCompound> {
+pub fn flatten_nbt(nbt: &JCompound) -> Option<JCompound> {
     if let Some(state) = BlockState::from_nbt(nbt) {
         let data = block_state_data();
         if let Some(index) = data.index_by_old_nbt.get(&state) {
@@ -16,21 +16,25 @@ pub(crate) fn flatten_nbt(nbt: &JCompound) -> Option<JCompound> {
     None
 }
 
-pub(crate) fn get_new_block_name(old: &impl AsRef<JavaStr>) -> &JavaStr {
+// must have "minecraft:" namespace
+pub fn get_new_block_name(old: &impl AsRef<JavaStr>) -> &JavaStr {
     let old = old.as_ref();
     let data = block_state_data();
-    if let Some(index) = data.index_by_old_name.get(old) {
-        return data.states[*index as usize].name;
+    if let Some(&index) = data.id_by_old_name.get(old) {
+        return data.states[data.flattened_by_id[index as usize]
+            .expect("missing flattened BlockState index") as usize]
+            .name;
     }
 
     old
 }
 
-pub(crate) fn get_name_for_id(id: u16) -> &'static JavaStr {
-    get_state_for_id_raw(id).map_or_else(|| JavaStr::from_str("minecraft:air"), |state| state.name)
+pub fn get_new_name_for_id(id: u16) -> &'static JavaStr {
+    get_new_state_for_id_raw(id)
+        .map_or_else(|| JavaStr::from_str("minecraft:air"), |state| state.name)
 }
 
-pub(crate) fn get_state_for_id_raw(id: u16) -> Option<&'static BlockState<'static>> {
+pub fn get_new_state_for_id_raw(id: u16) -> Option<&'static BlockState<'static>> {
     if id >= 4096 {
         return None;
     }
@@ -38,8 +42,8 @@ pub(crate) fn get_state_for_id_raw(id: u16) -> Option<&'static BlockState<'stati
     data.flattened_by_id[id as usize].map(|index| &data.states[index as usize])
 }
 
-pub(crate) fn get_nbt_for_id(id: u16) -> JCompound {
-    get_state_for_id_raw(id).map_or_else(
+pub(crate) fn get_new_nbt_for_id(id: u16) -> JCompound {
+    get_new_state_for_id_raw(id).map_or_else(
         || {
             let mut ret = JCompound::new();
             ret.insert("Name", "minecraft:air");
@@ -50,11 +54,16 @@ pub(crate) fn get_nbt_for_id(id: u16) -> JCompound {
 }
 
 struct BlockStateData {
+    // all BlockStates
     states: Vec<BlockState<'static>>,
+    // old id -> index of flattened BlockState in states
     flattened_by_id: [Option<u16>; 4096],
+    // old block -> index of flattened BlockState in states
     block_defaults: [Option<u16>; 256],
+    // old BlockState -> index in states
     index_by_old_nbt: AHashMap<BlockState<'static>, u16>,
-    index_by_old_name: AHashMap<&'static JavaStr, u16>,
+    // old name -> old id
+    id_by_old_name: AHashMap<&'static JavaStr, u16>,
 }
 
 fn block_state_data() -> &'static BlockStateData {
@@ -66,9 +75,9 @@ fn block_state_data() -> &'static BlockStateData {
         let mut flattened_by_id = [NONE; 4096];
         let mut block_defaults = [NONE; 256];
         let mut index_by_old_nbt = AHashMap::new();
-        let mut index_by_old_name = AHashMap::new();
+        let mut id_by_old_name = AHashMap::new();
 
-        let registrar = |id: u16, new: BlockState<'static>, olds: Vec<BlockState<'static>>| {
+        let registrar = |old_id: u16, new: BlockState<'static>, olds: Vec<BlockState<'static>>| {
             let next_state_index = state_indexes.len();
             let new = *state_indexes.entry(new.clone()).or_insert_with(|| {
                 debug_assert!(next_state_index < u16::MAX as usize);
@@ -76,7 +85,7 @@ fn block_state_data() -> &'static BlockStateData {
                 next_state_index as u16
             });
             let mut next_state_index = state_indexes.len();
-            let old_ids: Vec<_> = olds
+            let old_indexes: Vec<_> = olds
                 .iter()
                 .map(|old| {
                     *state_indexes.entry(old.clone()).or_insert_with(|| {
@@ -90,21 +99,21 @@ fn block_state_data() -> &'static BlockStateData {
                 .collect();
 
             debug_assert!(
-                flattened_by_id[id as usize].is_none(),
-                "Mapping already exists for id {}",
-                id
+                flattened_by_id[old_id as usize].is_none(),
+                "Mapping already exists for old id {}",
+                old_id
             );
 
-            flattened_by_id[id as usize] = Some(new);
+            flattened_by_id[old_id as usize] = Some(new);
 
             // it's important that we register ids from smallest to largest, so that
             // the default is going to be correct
-            let block = id >> 4;
+            let block = old_id >> 4;
             block_defaults[block as usize].get_or_insert(new);
 
-            for (old, old_id) in olds.iter().zip(old_ids) {
-                index_by_old_name.entry(old.name).or_insert(old_id);
-                index_by_old_nbt.insert(old.clone(), old_id);
+            for (old, old_index) in olds.iter().zip(old_indexes) {
+                id_by_old_name.entry(old.name).or_insert(old_id);
+                index_by_old_nbt.insert(old.clone(), old_index);
             }
         };
 
@@ -121,7 +130,7 @@ fn block_state_data() -> &'static BlockStateData {
             flattened_by_id,
             block_defaults,
             index_by_old_nbt,
-            index_by_old_name,
+            id_by_old_name,
         }
     })
 }

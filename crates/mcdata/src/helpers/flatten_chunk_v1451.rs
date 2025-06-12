@@ -252,25 +252,25 @@ fn door_map() -> &'static BTreeMap<DoorState<'static>, BlockStateOwned> {
             map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "lower", "left", false, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "east", "half" => "lower", "hinge" => "left", "open" => "false", "powered" => "true"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "lower", "left", true, false), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "east", "half" => "lower", "hinge" => "left", "open" => "true", "powered" => "false"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "lower", "left", true, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "east", "half" => "lower", "hinge" => "left", "open" => "true", "powered" => "true"]));
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "lower", "right", false, false), block_flattening_v1450::get_state_for_id_raw(old_id).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "lower", "right", false, false), block_flattening_v1450::get_new_state_for_id_raw(old_id).unwrap().to_owned());
             map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "lower", "right", false, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "east", "half" => "lower", "hinge" => "right", "open" => "false", "powered" => "true"]));
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "lower", "right", true, false), block_flattening_v1450::get_state_for_id_raw(old_id + 4).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "lower", "right", true, false), block_flattening_v1450::get_new_state_for_id_raw(old_id + 4).unwrap().to_owned());
             map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "lower", "right", true, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "east", "half" => "lower", "hinge" => "right", "open" => "true", "powered" => "true"]));
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "left", false, false), block_flattening_v1450::get_state_for_id_raw(old_id + 8).unwrap().to_owned());
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "left", false, true), block_flattening_v1450::get_state_for_id_raw(old_id + 10).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "left", false, false), block_flattening_v1450::get_new_state_for_id_raw(old_id + 8).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "left", false, true), block_flattening_v1450::get_new_state_for_id_raw(old_id + 10).unwrap().to_owned());
             map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "left", true, false), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "east", "half" => "upper", "hinge" => "left", "open" => "true", "powered" => "false"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "left", true, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "east", "half" => "upper", "hinge" => "left", "open" => "true", "powered" => "true"]));
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "right", false, false), block_flattening_v1450::get_state_for_id_raw(old_id + 9).unwrap().to_owned());
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "right", false, true), block_flattening_v1450::get_state_for_id_raw(old_id + 11).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "right", false, false), block_flattening_v1450::get_new_state_for_id_raw(old_id + 9).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "right", false, true), block_flattening_v1450::get_new_state_for_id_raw(old_id + 11).unwrap().to_owned());
             map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "right", true, false), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "east", "half" => "upper", "hinge" => "right", "open" => "true", "powered" => "false"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "east", "upper", "right", true, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "east", "half" => "upper", "hinge" => "right", "open" => "true", "powered" => "true"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "lower", "left", false, false), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "north", "half" => "lower", "hinge" => "left", "open" => "false", "powered" => "false"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "lower", "left", false, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "north", "half" => "lower", "hinge" => "left", "open" => "false", "powered" => "true"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "lower", "left", true, false), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "north", "half" => "lower", "hinge" => "left", "open" => "true", "powered" => "false"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "lower", "left", true, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "north", "half" => "lower", "hinge" => "left", "open" => "true", "powered" => "true"]));
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "lower", "right", false, false), block_flattening_v1450::get_state_for_id_raw(old_id + 3).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "lower", "right", false, false), block_flattening_v1450::get_new_state_for_id_raw(old_id + 3).unwrap().to_owned());
             map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "lower", "right", false, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "north", "half" => "lower", "hinge" => "right", "open" => "false", "powered" => "true"]));
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "lower", "right", true, false), block_flattening_v1450::get_state_for_id_raw(old_id + 7).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "lower", "right", true, false), block_flattening_v1450::get_new_state_for_id_raw(old_id + 7).unwrap().to_owned());
             map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "lower", "right", true, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "north", "half" => "lower", "hinge" => "right", "open" => "true", "powered" => "true"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "upper", "left", false, false), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "north", "half" => "upper", "hinge" => "left", "open" => "false", "powered" => "false"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "north", "upper", "left", false, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "north", "half" => "upper", "hinge" => "left", "open" => "false", "powered" => "true"]));
@@ -284,9 +284,9 @@ fn door_map() -> &'static BTreeMap<DoorState<'static>, BlockStateOwned> {
             map.insert(DoorState::new(format!("minecraft:{}", typ), "south", "lower", "left", false, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "south", "half" => "lower", "hinge" => "left", "open" => "false", "powered" => "true"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "south", "lower", "left", true, false), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "south", "half" => "lower", "hinge" => "left", "open" => "true", "powered" => "false"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "south", "lower", "left", true, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "south", "half" => "lower", "hinge" => "left", "open" => "true", "powered" => "true"]));
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "south", "lower", "right", false, false), block_flattening_v1450::get_state_for_id_raw(old_id + 1).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "south", "lower", "right", false, false), block_flattening_v1450::get_new_state_for_id_raw(old_id + 1).unwrap().to_owned());
             map.insert(DoorState::new(format!("minecraft:{}", typ), "south", "lower", "right", false, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "south", "half" => "lower", "hinge" => "right", "open" => "false", "powered" => "true"]));
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "south", "lower", "right", true, false), block_flattening_v1450::get_state_for_id_raw(old_id + 5).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "south", "lower", "right", true, false), block_flattening_v1450::get_new_state_for_id_raw(old_id + 5).unwrap().to_owned());
             map.insert(DoorState::new(format!("minecraft:{}", typ), "south", "lower", "right", true, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "south", "half" => "lower", "hinge" => "right", "open" => "true", "powered" => "true"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "south", "upper", "left", false, false), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "south", "half" => "upper", "hinge" => "left", "open" => "false", "powered" => "false"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "south", "upper", "left", false, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "south", "half" => "upper", "hinge" => "left", "open" => "false", "powered" => "true"]));
@@ -300,9 +300,9 @@ fn door_map() -> &'static BTreeMap<DoorState<'static>, BlockStateOwned> {
             map.insert(DoorState::new(format!("minecraft:{}", typ), "west", "lower", "left", false, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "west", "half" => "lower", "hinge" => "left", "open" => "false", "powered" => "true"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "west", "lower", "left", true, false), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "west", "half" => "lower", "hinge" => "left", "open" => "true", "powered" => "false"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "west", "lower", "left", true, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "west", "half" => "lower", "hinge" => "left", "open" => "true", "powered" => "true"]));
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "west", "lower", "right", false, false), block_flattening_v1450::get_state_for_id_raw(old_id + 2).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "west", "lower", "right", false, false), block_flattening_v1450::get_new_state_for_id_raw(old_id + 2).unwrap().to_owned());
             map.insert(DoorState::new(format!("minecraft:{}", typ), "west", "lower", "right", false, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "west", "half" => "lower", "hinge" => "right", "open" => "false", "powered" => "true"]));
-            map.insert(DoorState::new(format!("minecraft:{}", typ), "west", "lower", "right", true, false), block_flattening_v1450::get_state_for_id_raw(old_id + 6).unwrap().to_owned());
+            map.insert(DoorState::new(format!("minecraft:{}", typ), "west", "lower", "right", true, false), block_flattening_v1450::get_new_state_for_id_raw(old_id + 6).unwrap().to_owned());
             map.insert(DoorState::new(format!("minecraft:{}", typ), "west", "lower", "right", true, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "west", "half" => "lower", "hinge" => "right", "open" => "true", "powered" => "true"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "west", "upper", "left", false, false), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "west", "half" => "upper", "hinge" => "left", "open" => "false", "powered" => "false"]));
             map.insert(DoorState::new(format!("minecraft:{}", typ), "west", "upper", "left", false, true), block_state_owned!(format!("minecraft:{}", typ); ["facing" => "west", "half" => "upper", "hinge" => "left", "open" => "false", "powered" => "true"]));
@@ -997,7 +997,7 @@ impl Section {
                         }
                     }
 
-                    let mut state = block_flattening_v1450::get_state_for_id_raw(state_id)
+                    let mut state = block_flattening_v1450::get_new_state_for_id_raw(state_id)
                         .unwrap_or_else(|| air());
                     if state.name == "minecraft:%%FILTER_ME%%" {
                         state = air();

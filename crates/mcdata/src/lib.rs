@@ -7,7 +7,7 @@ use world_transmuter_engine::{
     JValue, JValueMut,
 };
 
-mod helpers;
+pub mod helpers;
 pub mod types;
 pub mod version_names;
 mod versions;
